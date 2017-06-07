@@ -1,20 +1,20 @@
 package com.gzr7702.newsapp;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.gzr7702.newsapp.NewsStory;
-import com.gzr7702.newsapp.R;
-
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
 
 public class NewsAdapter extends ArrayAdapter<NewsStory> {
 
@@ -32,9 +32,8 @@ public class NewsAdapter extends ArrayAdapter<NewsStory> {
     // Class to use View Holder pattern
     static class ViewHolder {
         @BindView(R.id.title) TextView titleView;
-        @BindView(R.id.author) TextView authorView;
         @BindView(R.id.section) TextView sectionView;
-        @BindView(R.id.summary) TextView summaryView;
+        @BindView(R.id.image) ImageView imageView;
         @BindView(R.id.publish_date) TextView publishDateview;
 
         public ViewHolder(View view) {
@@ -56,17 +55,31 @@ public class NewsAdapter extends ArrayAdapter<NewsStory> {
             holder = new ViewHolder(rowView);
             rowView.setTag(holder);
 
-            holder.titleView.setText(mNewsStoryArrayList.get(position).getTitle());
-            holder.authorView.setText(mNewsStoryArrayList.get(position).getAuthor());
             holder.sectionView.setText(mNewsStoryArrayList.get(position).getSection());
-            holder.summaryView.setText(mNewsStoryArrayList.get(position).getSummary());
+            holder.titleView.setText(mNewsStoryArrayList.get(position).getTitle());
             holder.publishDateview.setText(mNewsStoryArrayList.get(position).getPublishDate());
+
+            Drawable imageDrawable = LoadImageFromWeb(mNewsStoryArrayList.get(position).getImageUrl());
+            holder.imageView.setImageDrawable(imageDrawable);
 
         } else {
             holder = (ViewHolder) rowView.getTag();
         }
 
         return rowView;
+    }
+
+    /*
+        Method used to load the web image from the thumbnail url
+     */
+    public static Drawable LoadImageFromWeb(String url) {
+        try {
+            InputStream inputStream = (InputStream) new URL(url).getContent();
+            Drawable drawable = Drawable.createFromStream(inputStream, "src name");
+            return drawable;
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
 

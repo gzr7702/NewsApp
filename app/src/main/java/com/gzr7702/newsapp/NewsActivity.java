@@ -38,7 +38,9 @@ public class NewsActivity extends AppCompatActivity
         mAdapter = new NewsAdapter(this.getApplicationContext(), new ArrayList<NewsStory>());
         listView.setAdapter(mAdapter);
 
-        //TODO: get prefered keyword here
+        //TODO: get prefered keyword from preferences
+        // Pass in dummy keyword for now
+        mPreferedTopic = "Trump";
 
         // Check network connection, display empty page if not available
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
