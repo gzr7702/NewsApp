@@ -33,7 +33,7 @@ public class NewsAdapter extends ArrayAdapter<NewsStory> {
     static class ViewHolder {
         @BindView(R.id.title) TextView titleView;
         @BindView(R.id.section) TextView sectionView;
-        @BindView(R.id.image) ImageView imageView;
+        @BindView(R.id.thumbnail) ImageView imageView;
         @BindView(R.id.publish_date) TextView publishDateview;
 
         public ViewHolder(View view) {
@@ -59,7 +59,7 @@ public class NewsAdapter extends ArrayAdapter<NewsStory> {
             holder.titleView.setText(mNewsStoryArrayList.get(position).getTitle());
             holder.publishDateview.setText(mNewsStoryArrayList.get(position).getPublishDate());
 
-            Drawable imageDrawable = LoadImageFromWeb(mNewsStoryArrayList.get(position).getImageUrl());
+            Drawable imageDrawable = loadImageFromWeb(mNewsStoryArrayList.get(position).getImageUrl());
             holder.imageView.setImageDrawable(imageDrawable);
 
         } else {
@@ -72,7 +72,7 @@ public class NewsAdapter extends ArrayAdapter<NewsStory> {
     /*
         Method used to load the web image from the thumbnail url
      */
-    public static Drawable LoadImageFromWeb(String url) {
+    public static Drawable loadImageFromWeb(String url) {
         try {
             InputStream inputStream = (InputStream) new URL(url).getContent();
             Drawable drawable = Drawable.createFromStream(inputStream, "src name");

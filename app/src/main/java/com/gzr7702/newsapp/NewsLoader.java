@@ -39,7 +39,6 @@ public class NewsLoader extends AsyncTaskLoader<List<NewsStory>> {
     @Override
     public List<NewsStory> loadInBackground() {
 
-        Log.v(LOG_TAG, "Started onStartLoading()");
         // Nothing to look up.
         if (mSearchWord == null) {
             return null;
@@ -98,15 +97,12 @@ public class NewsLoader extends AsyncTaskLoader<List<NewsStory>> {
                 return null;
             }
             resultJsonStr = buffer.toString();
-            Log.v(LOG_TAG, resultJsonStr);
-            //storyList = getDataFromJson(resultJsonStr);
+            storyList = getDataFromJson(resultJsonStr);
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error ", e);
-            /*
         } catch (JSONException e) {
             Log.e(LOG_TAG, e.getMessage(), e);
             e.printStackTrace();
-            */
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -127,35 +123,27 @@ public class NewsLoader extends AsyncTaskLoader<List<NewsStory>> {
         List<NewsStory> storyList = new ArrayList<>();
 
         JSONObject storyJson = new JSONObject(jsonString);
-        /*
 
-        if (bookJson.has("items")) {
-            JSONArray itemsArray = bookJson.getJSONArray("items");
+        if (storyJson.has("response")) {
+            JSONObject response = storyJson.getJSONObject("response");
+            JSONArray itemsArray = response.getJSONArray("results");
             for (int i = 0; i < itemsArray.length(); i++) {
                 JSONObject item = itemsArray.getJSONObject(i);
-                JSONObject volumeInfoObj = item.getJSONObject("volumeInfo");
 
-                String title = volumeInfoObj.getString("title");
-                String publishDate = volumeInfoObj.getString("publishedDate");
+                String title = item.getString("webTitle");
+                String section = item.getString("sectionName");
+                String webUrl = item.getString("webUrl");
+                String publishDate = item.getString("webPublicationDate");
 
-                StringBuilder authors = new StringBuilder();
-                if (volumeInfoObj.has("authors")) {
-                    JSONArray authorsArray = volumeInfoObj.getJSONArray("authors");
-                    for (int j = 0; j < authorsArray.length(); j++) {
-                        if (j >= 1) {
-                            authors.append(", ");
-                        }
-                        authors.append(authorsArray.get(j));
-                    }
-                } else {
-                    // no authors
-                    authors.append("NO AUTHOR AVAILABLE");
-                }
-                bookList.add(new Book(title, authors.toString(), publishDate));
+                JSONObject fieldsObj = item.getJSONObject("fields");
+                String imageUrl = fieldsObj.getString("thumbnail");
+
+                storyList.add(new NewsStory(title, section, webUrl, imageUrl, publishDate));
             }
         }
 
-        */
+        Log.v(LOG_TAG, storyList.toString());
+
         return storyList;
     }
 
