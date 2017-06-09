@@ -12,8 +12,8 @@
 
     <ImageView
         android:id="@+id/thumbnail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_width="69dp"
+        android:layout_height="match_parent"/>
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -24,29 +24,29 @@
         android:orientation="vertical"
         android:padding="15dp">
 
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/title"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:gravity="center_horizontal"
-              android:textSize="24sp"
-              android:textStyle="bold"/>
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:id="@+id/title"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:gravity="center_horizontal"
+                  android:textSize="18sp"
+                  android:textStyle="bold"/>
 
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/section"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:gravity="center_horizontal"
-              android:textSize="24sp"
-              android:textStyle="bold"/>
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:id="@+id/section"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:gravity="center_horizontal"
+                  android:textSize="10sp"
+                  android:textStyle="bold"/>
 
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/publish_date"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:gravity="center_horizontal"
-              android:textSize="18sp"
-              android:textStyle="italic"/>
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:id="@+id/publish_date"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:gravity="center_horizontal"
+                  android:textSize="8sp"
+                  android:textStyle="italic"/>
 
     </LinearLayout>
 

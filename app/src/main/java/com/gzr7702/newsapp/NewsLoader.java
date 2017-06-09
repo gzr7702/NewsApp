@@ -142,8 +142,6 @@ public class NewsLoader extends AsyncTaskLoader<List<NewsStory>> {
             }
         }
 
-        Log.v(LOG_TAG, storyList.toString());
-
         return storyList;
     }
 
