@@ -2,12 +2,16 @@ package com.gzr7702.newsapp;
 
 import android.app.LoaderManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.Loader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,21 +26,22 @@ public class NewsActivity extends AppCompatActivity
     private String mPreferedTopic;
     private NewsAdapter mAdapter;
     private TextView mEmptyStateTextView;
+    private ListView mListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
 
-        ListView listView = (ListView) findViewById(R.id.newsstory_list);
+        mListView = (ListView) findViewById(R.id.newsstory_list);
 
         // Account for empty view
         mEmptyStateTextView = (TextView) findViewById(R.id.empty_view);
-        listView.setEmptyView(mEmptyStateTextView);
+        mListView.setEmptyView(mEmptyStateTextView);
 
         // Set up adapter with empty list
         mAdapter = new NewsAdapter(this.getApplicationContext(), new ArrayList<NewsStory>());
-        listView.setAdapter(mAdapter);
+        mListView.setAdapter(mAdapter);
 
         //TODO: get prefered keyword from preferences
         // Pass in dummy keyword for now
@@ -56,6 +61,7 @@ public class NewsActivity extends AppCompatActivity
             // Update empty state with no connection error message
             mEmptyStateTextView.setText(R.string.internet_unavailable_message);
         }
+
     }
 
     @Override
@@ -73,6 +79,18 @@ public class NewsActivity extends AppCompatActivity
 
         if(stories != null && !stories.isEmpty()) {
             mAdapter.addAll(stories);
+            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view,
+                                        int position, long id) {
+                    NewsStory story = (NewsStory) mListView.getAdapter().getItem(position);
+                    String url = story.getWebUrl();
+
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(url));
+                    startActivity(intent);
+                }
+            });
         }
     }
 
