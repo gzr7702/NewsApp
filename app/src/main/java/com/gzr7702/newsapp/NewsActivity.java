@@ -4,12 +4,16 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -43,9 +47,10 @@ public class NewsActivity extends AppCompatActivity
         mAdapter = new NewsAdapter(this.getApplicationContext(), new ArrayList<NewsStory>());
         mListView.setAdapter(mAdapter);
 
-        //TODO: get prefered keyword from preferences
-        // Pass in dummy keyword for now
-        mPreferedTopic = "Trump";
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        mPreferedTopic = sharedPrefs.getString(
+                getString(R.string.settings_search_keyword_key),
+                getString(R.string.settings_search_keyword_default));
 
         // Check network connection, display empty page if not available
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -97,5 +102,24 @@ public class NewsActivity extends AppCompatActivity
     @Override
     public void onLoaderReset(Loader<List<NewsStory>> loader) {
         mAdapter.clear();
+    }
+
+    // Menu stuff -----------------
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
