@@ -4,22 +4,26 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@android:color/white"
+    android:layout_height="match_parent"
+    android:background="@drawable/listview_border"
     android:minHeight="@dimen/list_item_height"
     android:orientation="horizontal"
-    android:padding="15dp">
+    android:padding="5dp">
 
     <ImageView
         android:id="@+id/thumbnail"
-        android:layout_width="69dp"
-        android:layout_height="match_parent"/>
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center"/>
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
+        android:layout_weight="2"
+        android:padding="5dp"
+        android:background="@color/listViewBackground"
         android:minHeight="@dimen/list_item_height"
         android:orientation="vertical"
         >
@@ -29,7 +33,9 @@
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:gravity="center_horizontal"
-                  android:textSize="18sp"
+                  android:padding="3dp"
+                  android:textColor="@android:color/black"
+                  android:textSize="14sp"
                   android:textStyle="bold"/>
 
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -37,6 +43,8 @@
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:gravity="center_horizontal"
+                  android:padding="3dp"
+                  android:textColor="@android:color/black"
                   android:textSize="10sp"
                   android:textStyle="bold"/>
 
@@ -45,6 +53,8 @@
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:gravity="center_horizontal"
+                  android:padding="3dp"
+                  android:textColor="@android:color/black"
                   android:textSize="8sp"
                   android:textStyle="italic"/>
 

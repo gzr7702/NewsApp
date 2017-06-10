@@ -23,6 +23,8 @@ import java.util.List;
 
 import com.gzr7702.newsapp.NewsStory;
 
+import org.w3c.dom.Text;
+
 public class NewsActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<List<NewsStory>> {
     private static final int NEWS_LOADER_ID = 1;
@@ -50,6 +52,11 @@ public class NewsActivity extends AppCompatActivity
         mPreferedTopic = sharedPrefs.getString(
                 getString(R.string.settings_search_keyword_key),
                 getString(R.string.settings_search_keyword_default));
+
+        // Set header text
+        String headerText = "Subject: " + mPreferedTopic;
+        TextView header = (TextView) findViewById(R.id.header);
+        header.setText(headerText);
 
         // Check network connection, display empty page if not available
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
