@@ -22,7 +22,7 @@
         android:background="@android:color/white"
         android:minHeight="@dimen/list_item_height"
         android:orientation="vertical"
-        android:padding="15dp">
+        >
 
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"
                   android:id="@+id/title"
